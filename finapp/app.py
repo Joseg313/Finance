@@ -3,7 +3,6 @@
 
 # Import necessary libraries
 import streamlit as st
-
 import yfinance as yf
 import pandas as pd
 import numpy as np
@@ -123,9 +122,15 @@ if uploaded_config is not None:
 # Main stock selection
 st.sidebar.header("Stock Selection")
 main_ticker = st.sidebar.text_input("Enter a Stock Ticker (e.g., AAPL)", value=st.session_state.tickers[0])
+
+# --- FIX: Create a dynamic list of options for the multiselect ---
+# Combine a default list with any tickers currently in the session state to prevent errors.
+default_comparison_options = ['SPY', 'QQQ', 'DIA', 'TSLA', 'MSFT', 'AMZN', 'NVDA', 'META']
+combined_options = sorted(list(set(default_comparison_options + st.session_state.tickers)))
+
 tickers_for_comparison = st.sidebar.multiselect(
     "Compare with other stocks:",
-    options=['SPY', 'QQQ', 'DIA', 'TSLA', 'MSFT', 'AMZN', 'NVDA', 'META'],
+    options=combined_options, # Use the combined list for options
     default=[t for t in st.session_state.tickers if t != main_ticker]
 )
 
