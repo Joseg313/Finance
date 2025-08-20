@@ -1,1 +1,7 @@
-streamlityfinancepandasnumpyplotlyscipyopenpyxl
+streamlit
+yfinance
+pandas
+numpy
+plotly
+scipy
+openpyxl
